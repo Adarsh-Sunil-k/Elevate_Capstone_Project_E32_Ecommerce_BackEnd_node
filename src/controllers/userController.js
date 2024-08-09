@@ -1,7 +1,7 @@
 import User from "../models/userSchema.js"
 import generateToken from "../utils/generateToken.js";
 import bcrypt from 'bcrypt'
-import adminToken from "../utils/adminToken.js";
+
 
 const ping = (req,res)=>{
   res.send("sucessfully routed user-router");
@@ -39,12 +39,13 @@ const signup = async (req, res) => {
       return res.json({message:"user is not created"});
     }
 
-    const token = adminToken(email);
+    const token = generateToken(email);
+    console.log(token);
     
     res.cookie("token", token)
     res.json({message:"Signed successfully!"});
   } catch (error) {
-    // console.log(error, "Something wrong");
+    console.log(error, "Something wrong");
     res.status(500).json({message:"Internal Server Error"});
   }
 };
@@ -62,8 +63,9 @@ const signin = async (req,res)=>{
     if(!matchPassword){
       return res.json({message:"Password Not Match"});
     }
-    const token = adminToken(email);
+    const token = generateToken(email);
     res.cookie(token);
+    console.log(token)
     res.json({message:"Sucessfully Login"});
   } catch(error){
     console.log(error,"something Went Wrong");
