@@ -25,16 +25,18 @@ const createProduct = async (req, res) => {
       // console.log("result",result);
       const imageUrl = result.url;
       
-      const { name, discription, category, price,stock } = req.body;
+      const { name, description, category, price,stock } = req.body;
 
-      const categoryExists = await Category.findById(category);
-      if (!categoryExists) {
-        return res.status(400).json({ message: "Category does not exist" });
-      }
+      // const categoryExists = await Category.findById(category);
+      // console.log(category);
+      
+      // if (!categoryExists) {
+      //   return res.status(400).json({ message: "Category does not exist" });
+      // }
 
       const createProduct = new Product({
         name,
-        discription,
+        description,
         price,
         stock,
         category,
@@ -56,7 +58,7 @@ const createProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
     try {
       const products = await Product.find({ isDeleted: false }).populate('category');
-      res.status(200).json([products]);
+      res.status(200).json(products);
     } catch (error) {
       res.status(500).json({ message:"products not find"});
     }
