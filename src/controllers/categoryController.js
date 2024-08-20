@@ -6,6 +6,8 @@ const ping = (req,res)=>{
 // creation
 const createCategory = async(req, res)=>{
     const {name, description} = req.body
+    console.log(name);
+    
     try{
         const categoryExist = await Category.findOne({name});
         if(categoryExist){
@@ -25,7 +27,7 @@ const createCategory = async(req, res)=>{
        const addCategory = await createNewCategory.save();
        res.json(addCategory);
     }catch(error){
-    // console.log(error);
+    console.log("err",error.message);
     res.status(500).json({message:"internal server error"});
     }
 }
@@ -69,10 +71,10 @@ const updateCategory = async (req,res)=>{
     // console.log(name,description);
     
     try{
-        const findCategory = await Category.findByIdAndUpdate({id,
-            name,
-            description,
-        },
+        const findCategory = await Category.findByIdAndUpdate(id,
+           { name,
+            description},
+        
         {
             new:true
         })

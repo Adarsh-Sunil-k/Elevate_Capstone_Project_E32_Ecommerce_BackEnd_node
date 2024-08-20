@@ -1,5 +1,8 @@
 import Payment from "../models/paymentSchema.js";
 import Order from "../models/orderSchema.js";
+// import razorpayInstance from "../config/razorpayConfig.js";
+// import *as crypto from "crypto"
+
 
 // Create a payment
 const createPayment = async (req, res) => {
@@ -27,7 +30,31 @@ const createPayment = async (req, res) => {
   }
 };
 
-// Update a payment
+// create Paymeny
+// const order = async (req,res)=>{
+//   const {amount} = req.body ;
+
+//   try{
+//     const options = {
+//       amount: Number(amount * 100),
+//       currency : "INR",
+//       recipt: crypto.randomBytes(10).toString("hex"),
+//     };
+//     razorpayInstance.orders.create(options,(error , order)=>{
+//       if(error){
+//         console.log(error);
+//         return res.status(500).json({message:"Something went Wrong"}); 
+//       }
+//       console.log(order);
+//       return res.status(200).json({data:order})
+//     });
+//   }catch(error){
+//     res.status(500).json({message:error.message})
+//     console.log("error",error.message);
+//   }
+// };
+
+// Update  payment
 const updatePayment = async (req, res) => {
   const { id } = req.params;
   const { amount, method, status } = req.body;

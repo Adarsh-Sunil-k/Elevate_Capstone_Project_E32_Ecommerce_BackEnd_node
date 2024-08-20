@@ -27,12 +27,12 @@ const createProduct = async (req, res) => {
       
       const { name, description, category, price,stock } = req.body;
 
-      // const categoryExists = await Category.findById(category);
-      // console.log(category);
+      const categoryExists = await Category.findById(category);
+      console.log(category);
       
-      // if (!categoryExists) {
-      //   return res.status(400).json({ message: "Category does not exist" });
-      // }
+      if (!categoryExists) {
+        return res.status(400).json({ message: "Category does not exist" });
+      }
 
       const createProduct = new Product({
         name,
